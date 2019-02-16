@@ -1,0 +1,25 @@
+# IDEs
+.idea
+.code
+
+# OS X
+.DS_Store*
+Icon?
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+.directory
+*~
+
+# npm
+node_modules
+*.log
+*.gz
+chrome-linux.zip
+chrome-win32.zip
+chrome-win.zip

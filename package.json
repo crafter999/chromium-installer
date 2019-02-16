@@ -1,0 +1,22 @@
+{
+  "name": "chromium-installer",
+  "version": "0.6.3",
+  "description": "Download install or update the latest Chromium",
+  "main": "installer-updater.js",
+  "scripts": {},
+  "keywords": [
+    "chromium",
+    "install",
+    "update"
+  ],
+  "author": "crafter999",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/crafter999/chromium-installer"
+  },
+  "homepage": "https://github.com/crafter999/chromium-installer",
+  "dependencies": {
+    "mkdirp": "^0.5.1",
+    "yauzl": "^2.8.0"
+  }
+}
