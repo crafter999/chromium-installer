@@ -10,7 +10,7 @@ The code is extremely easy to read btw.
 
 # How to use
 
-1. Install from NPM using: `npm install chromium-downloader`
+1. Install from NPM using: `npm install chromium-installer`
 1. Set keys **once** either for Linux `set-API-keys-Linux.sh` or Windows
 `set-API-Keys-Windows.bat`
 1. Download & install as admin/root using `node installer-updater.js`
