@@ -18,5 +18,8 @@
   "dependencies": {
     "mkdirp": "^0.5.1",
     "yauzl": "^2.8.0"
+  },
+  "bin": {
+    "chromium-installer-updater": "./installer-updater.js"
   }
 }

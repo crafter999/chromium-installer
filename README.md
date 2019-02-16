@@ -10,10 +10,15 @@ The code is extremely easy to read btw.
 
 # How to use
 
-1. Install from NPM using: `npm install chromium-installer`
-1. Set keys **once** either for Linux `set-API-keys-Linux.sh` or Windows
+1. Install from NPM globally using: `npm install -g chromium-installer`
+1. Set keys **once** either for Linux (**nonroot**) `set-API-keys-Linux.sh` or Windows
 `set-API-Keys-Windows.bat`
-1. Download & install as admin/root using `node installer-updater.js`
+1. Download & install as admin/root using `chromium-installer-updater`
+
+# Linux (last steps)
+```
+sysctl -w kernel.unprivileged_userns_clone=1
+```
 
 # Todo
 
@@ -25,8 +30,8 @@ The code is extremely easy to read btw.
 
 
 # Tested
-Linux Debian Stretch 9
+Linux Debian Stretch 9 (Gnome Shell 3.22.3)
 
-Windows 10
+Windows 10 (1709)
 
 Nodejs 11.9.0
