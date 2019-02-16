@@ -1,6 +1,6 @@
 {
   "name": "chromium-installer",
-  "version": "0.6.4",
+  "version": "0.6.5",
   "description": "Download install or update the latest Chromium",
   "main": "installer-updater.js",
   "scripts": {},
