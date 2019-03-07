@@ -1,15 +1,18 @@
 {
   "name": "chromium-installer",
-  "version": "0.6.5",
+  "version": "0.7.5",
   "description": "Download install or update the latest Chromium",
   "main": "installer-updater.js",
-  "scripts": {},
+  "scripts": {
+    "test": "jest"
+  },
   "keywords": [
     "chromium",
     "install",
     "update"
   ],
   "author": "crafter999",
+  "license": "(ISC OR GPL-3.0)",
   "repository": {
     "type": "git",
     "url": "https://github.com/crafter999/chromium-installer"
@@ -21,5 +24,8 @@
   },
   "bin": {
     "chromium-installer-updater": "./installer-updater.js"
+  },
+  "devDependencies": {
+    "jest": "^24.1.0"
   }
 }

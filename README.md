@@ -27,6 +27,7 @@ sysctl -w kernel.unprivileged_userns_clone=1
 + Better terminal UI
 + API version
 + Create desktop shortcuts
++ Reach 100% Code Coverage
 
 
 # Tested
