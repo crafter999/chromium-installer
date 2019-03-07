@@ -4,7 +4,7 @@ const os = require("os");
 const downloader = require("./lib/downloader");
 const utilities = require("./lib/utilities");
 const unzip = require("./lib/unzip");
-
+const fs = require("fs");
 const args = process.argv.slice(2);
 
 (async function () {
@@ -31,6 +31,9 @@ const args = process.argv.slice(2);
       console.log("\nUnzipping the files to " + destination);
       await utilities.safeMkdir(destination);
       await unzip.unzipFile(fileName, destination);
+
+      // delete zip file
+      fs.unlinkSync(fileName);
 
       console.log("Done");
    } catch (e) {
