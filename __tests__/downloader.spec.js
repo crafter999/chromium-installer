@@ -1,4 +1,4 @@
-const downloader = require("../lib/downloader");
+const downloader = require("../src/downloader");
 let mediaLinkUrl;
 let lastChangeContents;
 

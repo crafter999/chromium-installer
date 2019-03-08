@@ -1,4 +1,4 @@
-const unzip = require("../lib/unzip");
+const unzip = require("../src/unzip");
 const fs = require("fs");
 
 describe("Test the yauzl library",()=>{

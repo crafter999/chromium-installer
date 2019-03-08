@@ -4,7 +4,7 @@
 # About
 
 I created this simple tool to secure install/update from **Google** servers the latest
-Chromium snapshot version and it's works fine both on Linux and Windows with only 2 
+Chromium snapshot version and it works fine both on Linux and Windows with only 2 
 dependencies (6 including children). It start downloading the latest snapshot file 
 from https://www.googleapis.com/ then will unzip the files inside `/opt/chromium/` (Linux) or 
 `C:\Program Files\Chromium` (Windows) using a module called `yauzl`.
@@ -14,18 +14,19 @@ The code is extremely easy to read btw.
 # How to use
 
 1. Install from NPM globally using: `npm install -g chromium-installer`
-1. Set keys **once** either for Linux (**nonroot**) `set-API-keys-Linux.sh` or Windows
-`set-API-Keys-Windows.bat`
-1. Download & install as admin/root using `chromium-installer-updater`
-
-# Linux (last steps)
+1. Set keys **once** either for Linux (**nonroot**) `./scripts/set-API-keys-Linux.sh` or Windows
+`.\scripts\set-API-Keys-Windows.bat`
+1. Download & install as **admin/root** using the following command `chromium-installer-updater`
+### Linux (sandbox crash)
+There is a bug where sandboxing may not work and make Chromium crash. 
+Some linux distributions does not support unprivileged user namespaces and may need the following kernel tweak.
 ```
 sysctl -w kernel.unprivileged_userns_clone=1
 ```
 
 # Todo
 
-+ Mac Support
++ OSX Support
 + Make it default browser using a script
 + Better terminal UI
 + API version

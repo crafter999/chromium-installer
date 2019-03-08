@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 const os = require("os");
-const downloader = require("./lib/downloader");
-const utilities = require("./lib/utilities");
-const unzip = require("./lib/unzip");
+const downloader = require("./src/downloader");
+const utilities = require("./src/utilities");
+const unzip = require("./src/unzip");
 const fs = require("fs");
 const args = process.argv.slice(2);
 

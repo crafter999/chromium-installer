@@ -1,7 +1,9 @@
 {
   "name": "chromium-installer",
   "version": "0.7.7",
-  "node": ">= 8.9.1",
+  "engines": {
+    "node": ">8.9.1"
+  },
   "description": "Download install or update the latest Chromium",
   "main": "installer-updater.js",
   "scripts": {

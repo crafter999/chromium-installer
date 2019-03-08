@@ -1,4 +1,4 @@
-const util = require("../lib/utilities");
+const util = require("../src/utilities");
 const fs = require("fs");
 
 describe("testing the utilities",()=>{

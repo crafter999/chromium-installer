@@ -20,6 +20,8 @@ Desktop.ini
 node_modules
 *.log
 *.gz
+
+# Project
 chrome-linux.zip
 chrome-win32.zip
 chrome-win.zip
