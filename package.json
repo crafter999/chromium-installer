@@ -1,6 +1,6 @@
 {
   "name": "chromium-installer",
-  "version": "0.7.8",
+  "version": "0.7.9",
   "engines": {
     "node": ">8.9.1"
   },
