@@ -29,6 +29,6 @@
     "chromium-installer-updater": "./installer-updater.js"
   },
   "devDependencies": {
-    "jest": "^24.1.0"
+    "jest": "^24.7.1"
   }
 }

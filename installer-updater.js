@@ -25,11 +25,12 @@ const args = process.argv.slice(2);
    }
 
    try {
+      await utilities.safeMkdir(destination);
+
       console.log(`Downloading ${fileName} for ${currentOS}`);
       await downloader.downloadChromeV2(currentOS, fileName, args[0]);
 
       console.log("\nUnzipping the files to " + destination);
-      await utilities.safeMkdir(destination);
       await unzip.unzipFile(fileName, destination);
 
       // delete zip file
