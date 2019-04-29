@@ -19,10 +19,12 @@ The code is extremely easy to read btw.
 1. Download & install as **admin/root** using the following command `chromium-installer-updater`
 ### Linux (sandbox crash)
 There is a bug where sandboxing may not work and make Chromium crash. 
-Some linux distributions does not support unprivileged user namespaces and may need the following kernel tweak.
+Some linux distributions does not support unprivileged user namespaces and may need the following kernel tweak.  
+
 ```
 sysctl -w kernel.unprivileged_userns_clone=1
 ```
+***May Compromise System Security**
 
 # Todo
 

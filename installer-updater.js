@@ -11,20 +11,19 @@ const args = process.argv.slice(2);
    let currentOS;
    let fileName;
    let destination;
-
-   if (os.type() === "Linux") {
-      currentOS = "Linux_x64";
-      fileName = "chrome-linux.zip";
-      destination = "/opt/chromium/";
-   } else if (os.type() === "Windows_NT") {
-      currentOS = "Win_x64";
-      fileName = "chrome-win.zip"; // the old one was "chrome-win32.zip"
-      destination = "C:\\Program Files\\Chromium";
-   } else {
-      throw new Error("Your OS is not supported yet");
-   }
-
    try {
+      if (os.type() === "Linux") {
+         currentOS = "Linux_x64";
+         fileName = "chrome-linux.zip";
+         destination = "/opt/chromium/";
+      } else if (os.type() === "Windows_NT") {
+         currentOS = "Win_x64";
+         fileName = "chrome-win.zip"; // the old one was "chrome-win32.zip"
+         destination = "C:\\Program Files\\Chromium";
+      } else {
+         throw new Error("Your OS is not supported yet");
+      }
+
       await utilities.safeMkdir(destination);
 
       console.log(`Downloading ${fileName} for ${currentOS}`);
@@ -37,6 +36,12 @@ const args = process.argv.slice(2);
       fs.unlinkSync(fileName);
 
       console.log("Done");
+
+      if (os.type() === "Linux"){
+         if (!await utilities.checkExecutable(destination+"chrome-linux/chrome")){
+				console.warn("\nDon't forget to make executable the file: /opt/chromium/chrome-linux/chrome");
+			}
+      }
    } catch (e) {
       console.error(e);
       process.exit(1);

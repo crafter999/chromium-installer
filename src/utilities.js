@@ -39,7 +39,6 @@ class utilities {
             if (error) rejProm(error);
             else {
                if (!files.length) {
-                  // Directory is empty
                   resProm(true);
                } else {
                   resProm(false);
@@ -66,6 +65,22 @@ class utilities {
          }
       }
       fs.rmdirSync(dir);
+   }
+
+   static checkExecutable(file) {
+       return new Promise((resProm, rejProm) => {
+          fs.access(file, fs.constants.X_OK, (err) => {
+             if (err) {
+                if (err.code==="EACCES"){
+                   resProm(false);
+                } else {
+                   rejProm(err);
+                }
+             } else {
+                resProm(true);
+             }
+          });
+       });
    }
 }
 
