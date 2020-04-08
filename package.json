@@ -1,6 +1,6 @@
 {
   "name": "chromium-installer",
-  "version": "0.7.10",
+  "version": "0.7.11",
   "engines": {
     "node": ">8.9.1"
   },
@@ -22,8 +22,8 @@
   },
   "homepage": "https://github.com/crafter999/chromium-installer",
   "dependencies": {
-    "mkdirp": "^0.5.1",
-    "yauzl": "^2.8.0"
+    "mkdirp": "^1.0.4",
+    "yauzl": "^2.10.0"
   },
   "bin": {
     "chromium-installer-updater": "./installer-updater.js"

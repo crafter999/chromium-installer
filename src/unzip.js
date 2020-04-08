@@ -16,28 +16,20 @@ function unzipFile(fileName, destination) {
             }
             // console.info("Unzipping the file");
             zipfile.readEntry();
-            zipfile.on("entry", (entry) => {
+            zipfile.on("entry",  (entry) => {
                const fileName = path.join(destination, entry.fileName);
                if (/\/$/.test(entry.fileName)) {
                   // directory file names end with '/'
-                  mkdirp(fileName, (dirError) => {
-                     if (dirError){
-                        rejProm(dirError);
-                     }
-                     zipfile.readEntry();
-                  });
+                  mkdirp.sync(fileName);
+                  zipfile.readEntry();
                } else {
                   // file entry
                   zipfile.openReadStream(entry, (fileError, readStream) => {
                      // ensure parent directory exists
-                     mkdirp(path.dirname(fileName), (err) => {
-                        if (err){
-                           rejProm(err);
-                        }
-                        readStream.pipe(fs.createWriteStream(fileName));
-                        readStream.on("end", () => {
-                           zipfile.readEntry();
-                        });
+                     mkdirp.sync(path.dirname(fileName));
+                     readStream.pipe(fs.createWriteStream(fileName));
+                     readStream.on("end", () => {
+                        zipfile.readEntry();
                      });
                   });
                }
