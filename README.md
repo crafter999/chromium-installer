@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/crafter999/chromium-installer.svg?branch=master)](https://travis-ci.org/crafter999/chromium-installer)
-![node](https://img.shields.io/node/v/chromium-installer.svg) ![Maintenance](https://img.shields.io/maintenance/yes/2019.svg) ![NPM](https://img.shields.io/npm/l/chromium-installer.svg)
+![node](https://img.shields.io/node/v/chromium-installer.svg) ![Maintenance](https://img.shields.io/maintenance/yes/2020.svg) ![NPM](https://img.shields.io/npm/l/chromium-installer.svg)
 
 # About
 
