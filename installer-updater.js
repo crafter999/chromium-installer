@@ -12,7 +12,11 @@ const args = process.argv.slice(2);
    let fileName;
    let destination;
    try {
-      if (os.type() === "Linux") {
+      if (fs.existsSync("/system/bin/getprop") || fs.existsSync("/system/build.prop")){
+         currentOS = "Android";
+         fileName = "chrome-android.zip";
+         destination = "/data/local/tmp/chromium-installer/";
+      } else if (os.type() === "Linux") {
          currentOS = "Linux_x64";
          fileName = "chrome-linux.zip";
          destination = "/opt/chromium/";
@@ -36,12 +40,6 @@ const args = process.argv.slice(2);
       fs.unlinkSync(fileName);
 
       console.log("Done");
-
-      if (os.type() === "Linux"){
-         if (!await utilities.checkExecutable(destination+"chrome-linux/chrome")){
-				console.warn("\nDon't forget to make executable the file: /opt/chromium/chrome-linux/chrome");
-			}
-      }
    } catch (e) {
       console.error(e);
       process.exit(1);
