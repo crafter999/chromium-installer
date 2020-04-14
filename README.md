@@ -41,6 +41,9 @@ TIP: Alternatively skip the steps 4 & 5 and run the script
 located at ./scripts/android.sh using the following command as root: 
 ```/data/data/com.termux/files/usr/lib/node_modules/chromium-installer/scripts/android.sh```
 
+![](https://user-images.githubusercontent.com/27963519/79260134-7452d080-7e96-11ea-967c-2b1cba19c182.gif)
+
+
 **WARNING! The following guide was tested on Android 9.**
 
 # Todo
