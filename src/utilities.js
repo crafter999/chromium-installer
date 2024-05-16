@@ -1,87 +1,54 @@
 const fs = require("fs");
 const path = require("path");
 
-class utilities {
-   // WARNING! If folder exists it will be deleted
-   static safeMkdir(destination) {
-      return new Promise(async (resProm, rejProm) => {
-         try {
-            // check if folder exits
-            fs.accessSync(destination, fs.constants.F_OK);
-            // delete old stuff if existed
-            this.rmdirRecuSync(destination);
-            // make a new folder in place
-            fs.mkdirSync(destination);
-            resProm("OK");
-         } catch (e) {
-            // if folder doesn't exists check permission and create a new folder
-            if (e.code === "ENOENT") {
-               fs.mkdir(destination, (error) => {
-                  if (error) {
-                     if (error.code === "EPERM") {
-                        rejProm(new Error("You don't have write permissions in this folder: " + destination));
-                     } else {
-                        rejProm(e); // generic error
-                     }
-                  }
-                  resProm("OK");
-               });
-            } else {
-               rejProm(e); // generic error
-            }
-         }
-      });
-   }
-
-   static isDirEmpty(path) {
-      return new Promise((resProm, rejProm) => {
-         fs.readdir(path, (error, files) => {
-            if (error) rejProm(error);
-            else {
-               if (!files.length) {
-                  resProm(true);
-               } else {
-                  resProm(false);
-               }
-            }
-         });
-      });
-   }
-
-   static rmdirRecuSync(dir) {
-      const list = fs.readdirSync(dir);
-      for (let i = 0; i < list.length; i++) {
-         const filename = path.join(dir, list[i]);
-         const stat = fs.statSync(filename);
-
-         if (filename === "." || filename === "..") {
-            // pass these files
-         } else if (stat.isDirectory()) {
-            // rmdir recursively
-            this.rmdirRecuSync(filename);
-         } else {
-            // rm filename
-            fs.unlinkSync(filename);
-         }
+class Utilities {
+  static async safeMkdir(destination) {
+    try {
+      await fs.promises.mkdir(destination, { recursive: true });
+    } catch (err) {
+      if (err.code === "EEXIST") {
+        await this.rmdirRecursive(destination);
+        await fs.promises.mkdir(destination);
+      } else if (err.code === "EACCES") {
+        throw new Error(
+          `You don't have write permissions in this folder: ${destination}`
+        );
+      } else {
+        throw err;
       }
-      fs.rmdirSync(dir);
-   }
+    }
+  }
 
-   static checkExecutable(file) {
-       return new Promise((resProm, rejProm) => {
-          fs.access(file, fs.constants.X_OK, (err) => {
-             if (err) {
-                if (err.code==="EACCES"){
-                   resProm(false);
-                } else {
-                   rejProm(err);
-                }
-             } else {
-                resProm(true);
-             }
-          });
-       });
-   }
+  static async isDirEmpty(path) {
+    const files = await fs.promises.readdir(path);
+    return files.length === 0;
+  }
+
+  static async rmdirRecursive(dir) {
+    const files = await fs.promises.readdir(dir);
+    for (const file of files) {
+      const filePath = path.join(dir, file);
+      const stat = await fs.promises.stat(filePath);
+      if (stat.isDirectory()) {
+        await this.rmdirRecursive(filePath);
+      } else {
+        await fs.promises.unlink(filePath);
+      }
+    }
+    await fs.promises.rmdir(dir);
+  }
+
+  static async checkExecutable(file) {
+    try {
+      await fs.promises.access(file, fs.constants.X_OK);
+      return true;
+    } catch (err) {
+      if (err.code === "EACCES") {
+        return false;
+      }
+      throw err;
+    }
+  }
 }
 
-module.exports = utilities;
+module.exports = Utilities;

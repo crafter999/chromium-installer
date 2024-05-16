@@ -1,15 +1,13 @@
 [![Build Status](https://travis-ci.org/crafter999/chromium-installer.svg?branch=master)](https://travis-ci.org/crafter999/chromium-installer)
-![node](https://img.shields.io/node/v/chromium-installer.svg) ![Maintenance](https://img.shields.io/maintenance/yes/2020.svg) ![NPM](https://img.shields.io/npm/l/chromium-installer.svg)
+![node](https://img.shields.io/node/v/chromium-installer.svg) ![Maintenance](https://img.shields.io/maintenance/yes/2024.svg) ![NPM](https://img.shields.io/npm/l/chromium-installer.svg)
 
 # About
 
 I created this simple tool to secure install/update from **Google** servers the latest
-Chromium snapshot version and it works fine both on Linux, Windows and Android (root) with only 2 
+Chromium snapshot version and it works fine both on Linux, macOS (Apple Silicon),  Windows and Android (root) with only 2 
 dependencies (7 including children). It start downloading the latest snapshot file 
 from https://www.googleapis.com/ then will unzip the files inside `/opt/chromium/` (Linux) or 
 `C:\Program Files\Chromium` (Windows) using a module called `yauzl`.
-I'm open sourcing it after I have used it for around 2 years now without any problems. 
-The code is extremely easy to read btw.
 
 # How to use on PC
 
@@ -48,7 +46,6 @@ located at ./scripts/android.sh using the following command as root:
 
 # Todo
 
-+ OSX Support
 + Make it default browser using a script
 + Better terminal UI
 + API version
@@ -65,3 +62,4 @@ Nodejs 11.9.0/12.15/0
 
 Android 9
 
+macOS 14

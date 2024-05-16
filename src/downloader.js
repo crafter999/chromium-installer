@@ -1,90 +1,75 @@
 const https = require("https");
 const fs = require("fs");
 
-function _GET(path, download = false, fileName = "") {
-    return new Promise((resProm, rejProm) => {
-        let chunk = "";
-        // progress bar vars
-        let total = 0;
-        let received = 0;
-        // request stuff
-        const options = {
-            hostname: "www.googleapis.com",
-            port: 443,
-            path: path,
-            method: "GET"
-        };
-        let req = https.request(options, (res) => {
-            if (download === true) {
-                res.pipe(fs.createWriteStream(fileName));
-                res.on("end", () => {
-                    resProm(true);
-                });
-                // while getting data calculate and print out the percentage
-                res.on("data", (chunk) => {
-                    received += chunk.length;
-                    // print out the percentage
-                    process.stdout.write("\r" +
-                        Math.floor(received * 100 / total) + "%"
-                    );
-                });
-                res.on("error", (e) => rejProm(e));
-            } else {
-                res.setEncoding("utf8");
-                res.on("data", (data) => {
-                    // fill the chunk with data
-                    chunk += data;
-                });
-                res.on("end", () => resProm(chunk.toString()));
-                res.on("error", (e) => rejProm(e));
-            }
+const get = (path, download = false, fileName = "") =>
+  new Promise((resolve, reject) => {
+    let chunk = "";
+    let total = 0;
+    let received = 0;
+
+    const options = {
+      hostname: "www.googleapis.com",
+      port: 443,
+      path: path,
+      method: "GET",
+    };
+
+    const req = https.request(options, (res) => {
+      if (res.statusCode !== 200) {
+        reject(new Error(`Request failed with status code ${res.statusCode}`));
+        return;
+      }
+
+      if (download) {
+        res.pipe(fs.createWriteStream(fileName));
+        res.on("data", (chunk) => {
+          if (total === 0) total = parseInt(res.headers["content-length"], 10);
+          received += chunk.length;
+          process.stdout.write(`\r${Math.floor((received * 100) / total)}%`);
         });
-        // get the total size for the progress bar
-        if (download === true) {
-            req.on("response", (data) => {
-                total = data.headers["content-length"];
-            });
-        }
-        req.on("error", (e) => {
-            rejProm(e);
+        res.on("end", () => resolve(true));
+        res.on("error", reject);
+      } else {
+        res.setEncoding("utf8");
+        res.on("data", (data) => {
+          chunk += data;
         });
-        req.end();
+        res.on("end", () => resolve(chunk));
+        res.on("error", reject);
+      }
     });
-}
 
-async function downloadChromeV2(os, fileName) {
-    return new Promise(async (resProm, rejProm) => {
-        try {
-            let httpCall = await _GET("/storage/v1/b/" +
-                `chromium-browser-snapshots/o/${os}%2FLAST_CHANGE`);
-            let last_change = JSON.parse(httpCall);
+    req.on("error", reject);
+    req.end();
+  });
 
-            if (typeof last_change.mediaLink === "undefined") {
-                rejProm("Cannot find LAST_CHANGE file");
-            } else {
-                let lastChangeContents = await _GET(last_change.mediaLink);
-                // "change" directory to the newest snapshot using LAST_CHANGE's value
-                let httpCall = await _GET("/storage/v1/b/chromium-" +
-                    `browser-snapshots/o?delimiter=/&prefix=${os}/${lastChangeContents.trim()}` +
-                    "/&fields=items(kind,mediaLink,metadata,name,size," +
-                    "updated),kind,prefixes,nextPageToken");
-                let reqFolder = JSON.parse(httpCall);
-                // check if there's a valid file to download
-                let elementToDownload = reqFolder.items.filter(e => e.name.endsWith(fileName));
-                if (elementToDownload.length !== 0) {
-                    await _GET(elementToDownload[0].mediaLink, true, fileName);
-                } else {
-                    rejProm("404 Find not found");
-                }
+const downloadChromeV2 = async (os, fileName) => {
+    const lastChangeResponse = await get(
+        `/storage/v1/b/chromium-browser-snapshots/o/${os}%2FLAST_CHANGE`
+    );
+    const lastChangeData = JSON.parse(lastChangeResponse);
 
-                resProm("done");
-            }
-        } catch (e) {
-            rejProm(e);
-        }
-    });
-}
+    if (!lastChangeData.mediaLink) {
+        throw new Error("Cannot find LAST_CHANGE file");
+    }
 
+    const lastChangeContents = await get(lastChangeData.mediaLink);
+    const latestSnapshotPath = `${os}/${lastChangeContents.trim()}`;
 
-module.exports.downloadChromeV2 = downloadChromeV2;
-module.exports._GET = _GET;
+    const snapshotResponse = await get(
+        `/storage/v1/b/chromium-browser-snapshots/o?delimiter=/&prefix=${latestSnapshotPath}` +
+        "/&fields=items(kind,mediaLink,metadata,name,size,updated),kind,prefixes,nextPageToken"
+    );
+    const snapshotData = JSON.parse(snapshotResponse);
+
+    const fileToDownload = snapshotData.items.find((item) => item.name.endsWith(fileName));
+
+    if (!fileToDownload) {
+        throw new Error("File not found");
+    }
+
+    await get(fileToDownload.mediaLink, true, fileName);
+    return "Download completed";
+};
+
+module.exports = { downloadChromeV2, get };
