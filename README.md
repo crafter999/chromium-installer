@@ -3,11 +3,7 @@
 
 # About
 
-I created this simple tool to secure install/update from **Google** servers the latest
-Chromium snapshot version and it works fine both on Linux, macOS (Apple Silicon),  Windows and Android (root) with only 2 
-dependencies (7 including children). It start downloading the latest snapshot file 
-from https://www.googleapis.com/ then will unzip the files inside `/opt/chromium/` (Linux) or 
-`C:\Program Files\Chromium` (Windows) using a module called `yauzl`.
+I developed this  tool to securely install or update the latest Chromium snapshot version directly from Google servers. This tool is compatible with Linux, macOS (Apple Silicon), Windows, and rooted Android devices, requiring only two main dependencies (seven, including sub-dependencies). Its primary function is to download the latest snapshot file from https://www.googleapis.com/ and then unzip the files into `/opt/chromium/` for Linux or `C:\Program Files\Chromium` for Windows using a module named `yauzl`. On macOS due to OS restrictions this tool only downloads .zip file to `~/Downloads` and the user have to manually install it.
 
 # How to use on PC
 
