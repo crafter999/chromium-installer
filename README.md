@@ -10,7 +10,7 @@ I developed this  tool to securely install or update the latest Chromium snapsho
 1. Install from NPM globally using: `npm install -g chromium-installer`
 1. Set keys **once** either for Linux (**nonroot**) `./scripts/set-API-keys-Linux.sh` or Windows
 `.\scripts\set-API-Keys-Windows.bat`
-1. Download & install as **admin/root** using the following command `chromium-installer-updater`
+1. Download & install as **admin/root** using the following command `chromium-installer`
 1. Don't forget to make chrome executable on Linux.
 ### Linux (sandbox crash)
 There is a bug where sandboxing may not work and make Chromium crash. 
