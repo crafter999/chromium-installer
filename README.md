@@ -3,28 +3,32 @@
 
 # About
 
-I developed this  tool to securely install or update the latest Chromium snapshot version directly from Google servers. This tool is compatible with Linux, macOS (Apple Silicon), Windows, and rooted Android devices, requiring only two main dependencies (seven, including sub-dependencies). Its primary function is to download the latest snapshot file from https://www.googleapis.com/ and then unzip the files into `/opt/chromium/` for Linux or `C:\Program Files\Chromium` for Windows using a module named `yauzl`. On macOS due to OS restrictions this tool only downloads .zip file to `~/Downloads` and the user have to manually install it.
+I developed this tool to securely install or update the latest Chromium snapshot version directly from Google servers. This tool is compatible with Linux, macOS (Apple Silicon), Windows, and rooted Android devices, requiring only two main dependencies (seven, including sub-dependencies). Its primary function is to download the latest snapshot file from https://www.googleapis.com/ and then unzip the files into `/opt/chromium/` for Linux or `C:\Program Files\Chromium` for Windows using a module named `yauzl`. On macOS due to OS restrictions this tool only downloads .zip file to `~/Downloads` and the user has to manually install it.
 
 # How to use on PC
 
 1. Install from NPM globally using: `npm install -g chromium-installer`
-1. Set keys **once** either for Linux (**nonroot**) `./scripts/set-API-keys-Linux.sh` or Windows
-`.\scripts\set-API-Keys-Windows.bat`
-1. Download & install as **admin/root** using the following command `chromium-installer`
+1. Download & install as using the following command `chromium-installer`
 1. Don't forget to make chrome executable on Linux.
+1. (optional) Set keys **once** either for Linux (**nonroot**) `./scripts/set-API-keys-Linux.sh` or Windows `.\scripts\set-API-Keys-Windows.bat`
 ### Linux (sandbox crash)
 There is a bug where sandboxing may not work and make Chromium crash. 
-Some linux distributions does not support unprivileged user namespaces and may need the following kernel tweak.  
+Some Linux distributions do not support unprivileged user namespaces and may need the following kernel tweak.  
 
-```
+```bash
 sysctl -w kernel.unprivileged_userns_clone=1
 ```
 ***May Compromise System Security**
 
+# How to use on macOS
+1. Install from NPM globally using: `npm install -g chromium-installer`
+1. Download & install as using the following command `chromium-installer`
+1. Move `Chromium.app` to `/Applications` using: `mv ~/Downloads/chrome-mac/Chromium.app /Applications/`
+1. Make it executable using `chmod -R 755 /Applications/Chromium.app`
+
 # How to use on Android (**root**) 
 1. Download and install Termux.
-1. Make sure you have installed the root and nodej.js packages, if not run
-   (non root) `pkg install tsu && pkg install nodejs`
+1. Make sure you have installed the root and Node.js packages, if not run (non root) `pkg install tsu && pkg install nodejs`
 1. Install the package using `npm install -g chromium-installer` (non root) 
 1. Now switch to root using `tsu` and run `chromium-installer-updater`
 1. Install the apks using the following command:

@@ -18,18 +18,15 @@ const args = process.argv.slice(2);
   console.log(`Downloading ${fileName} for ${currentOS}`);
   await downloader.downloadChromeV2(currentOS, fileName, args[0]);
 
-  if (currentOS === "Mac_Arm") {
-    console.log(`\nMoving the file to ${destination}`);
-    await fs.promises.rename(fileName, path.join(destination, fileName));
-
-    console.log("Because of macOS security restrictions, you have to "+
-      "manually unzip the file and move Chromium.app to Applications folder");
-
-    return
-  }
-
   console.log(`\nUnzipping the files to ${destination}`);
   await unzip.unzipFile(fileName, destination);
+
+  if (currentOS === "Mac_Arm") {
+    console.log(`Don't forget to move Chromium.app to /Applications and `+
+      "make it executable using these commands: \n\n"+
+      "mv ~/Downloads/chrome-mac/Chromium.app /Applications/\n"+
+      "chmod -R 755 /Applications/Chromium.app\n\n")
+  }
 
   console.log("Done");
 })().catch((e) => {
