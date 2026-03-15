@@ -1,5 +1,4 @@
-[![Build Status](https://travis-ci.org/crafter999/chromium-installer.svg?branch=master)](https://travis-ci.org/crafter999/chromium-installer)
-![node](https://img.shields.io/node/v/chromium-installer.svg) ![Maintenance](https://img.shields.io/maintenance/yes/2024.svg) ![NPM](https://img.shields.io/npm/l/chromium-installer.svg)
+![node](https://img.shields.io/node/v/chromium-installer.svg) ![Maintenance](https://img.shields.io/maintenance/yes/2026.svg) ![NPM](https://img.shields.io/npm/l/chromium-installer.svg)
 
 # About
 
@@ -8,7 +7,7 @@ I developed this tool to securely install or update the latest Chromium snapshot
 # How to use on PC
 
 1. Install from NPM globally using: `npm install -g chromium-installer`
-1. Download & install as using the following command `chromium-installer`
+1. Download & install Chromium using the following command `chromium-installer`
 1. Don't forget to make chrome executable on Linux.
 1. (optional) Set keys **once** either for Linux (**nonroot**) `./scripts/set-API-keys-Linux.sh` or Windows `.\scripts\set-API-Keys-Windows.bat`
 ### Linux (sandbox crash)
@@ -22,7 +21,7 @@ sysctl -w kernel.unprivileged_userns_clone=1
 
 # How to use on macOS
 1. Install from NPM globally using: `npm install -g chromium-installer`
-1. Download & install as using the following command `chromium-installer`
+1. Download & install Chromium using the following command `chromium-installer`
 1. Move `Chromium.app` to `/Applications` using: `mv ~/Downloads/chrome-mac/Chromium.app /Applications/`
 1. Make it executable using `chmod -R 755 /Applications/Chromium.app`
 
