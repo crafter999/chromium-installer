@@ -26,13 +26,13 @@
   "homepage": "https://github.com/crafter999/chromium-installer",
   "dependencies": {
     "mkdirp": "^3.0.1",
-    "yauzl": "^3.1.3"
+    "yauzl": "^3.2.1"
   },
   "bin": {
     "chromium-installer": "./src/installer-updater.js",
     "chromium-installer-updater": "./src/installer-updater.js"
   },
   "devDependencies": {
-    "jest": "^29.7.0"
+    "jest": "^30.3.0"
   }
 }
